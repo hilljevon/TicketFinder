@@ -103,11 +103,13 @@ const MainDashboard = () => {
     const [events, setEvents] = useState([])
     const [searchQuery, setSearchQuery] = useState('')
     const [eventDetails, setEventDetails] = useState<eventDetailsInterface>(null)
+    // INITIAL QUERY SEARCH
     const handleTestData = async () => {
         const result = await getTestData(searchQuery)
         const eventList = result._embedded.events
         setEvents(eventList)
     }
+    // PULLS ALL SPECIFIC EVENT DATA WHEN RIGHT SIDE BUTTON IS CLICKED
     const selectEvent = async (id: string) => {
         const result = await getEventData(id)
         console.log('MY RESULT EVENT HEREE', result)
@@ -120,6 +122,7 @@ const MainDashboard = () => {
         <>
             <Navbar />
             <div className='py-8 px-24'>
+                {/* INITIAL QUERY SEARCH BAR */}
                 <div className="flex w-full max-w-sm items-center space-x-2">
                     <Input
                         className='bg-slate-200'
@@ -129,6 +132,7 @@ const MainDashboard = () => {
                     />
                     <Button variant='secondary' onClick={handleTestData}>Search!</Button>
                 </div>
+                {/* ONCE OUR EVENTS QUERY IS GENERATED, RENDER OUR TABLE */}
                 {events && (
                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -155,6 +159,7 @@ const MainDashboard = () => {
                                                 {event.dates.start.localTime}
                                             </td>
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-0">
+                                                {/* WHEN THE BUTTON IS CLICKED, WE RUN SELECT EVENT FUNCTION */}
                                                 <Button variant='secondary' className='' onClick={() => selectEvent(event.id)}>
                                                     <Sheet>
                                                         <SheetTrigger>Select</SheetTrigger>
