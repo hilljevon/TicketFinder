@@ -1,5 +1,6 @@
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -73,7 +74,7 @@ export const Card = ({
             )}
         >
             <div className="relative z-50">
-                <div className="p-4">{children}</div>
+                <div className="p-4 flex flex-col items-center justify-center">{children}</div>
             </div>
         </div>
     );
@@ -86,7 +87,7 @@ export const CardTitle = ({
     children: React.ReactNode;
 }) => {
     return (
-        <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+        <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4 mx-auto", className)}>
             {children}
         </h4>
     );
@@ -105,7 +106,7 @@ export const CardDescription = ({
                 className
             )}
         >
-            {children}
+            <Image src='/nflLogo.png' alt="logo" width={70} height={70} />
         </p>
     );
 };
