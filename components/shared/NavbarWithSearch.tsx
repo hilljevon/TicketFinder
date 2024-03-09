@@ -1,18 +1,5 @@
 'use client'
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
@@ -89,18 +76,14 @@ export default function NavbarWithSearch() {
     const [events, setEvents] = useState([])
     const [searchQuery, setSearchQuery] = useState('')
     const [eventDetails, setEventDetails] = useState<eventDetailsInterface>(null)
-    // INITIAL QUERY SEARCH
     const handleTestData = async (e: any) => {
         e.preventDefault()
         const result = await getInitalSearch(searchQuery)
         const eventList = result._embedded.events
-        console.log('THIS IS THE EVENT LIST', eventList)
         setEvents(eventList)
     }
-    // PULLS ALL SPECIFIC EVENT DATA WHEN RIGHT SIDE BUTTON IS CLICKED
     const selectEvent = async (id: string) => {
         const result = await getEventData(id)
-        console.log('MY RESULT EVENT HEREE', result)
         setEventDetails(result)
     }
     const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,7 +105,6 @@ export default function NavbarWithSearch() {
                                 </div>
                                 <div className="hidden lg:ml-6 lg:block">
                                     <div className="flex space-x-4">
-                                        {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                                         <a href="/" className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">
                                             Leagues
                                         </a>
@@ -155,7 +137,6 @@ export default function NavbarWithSearch() {
                                 </div>
                             </div>
                             <div className="flex lg:hidden">
-                                {/* Mobile menu button */}
                                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                     <span className="absolute -inset-0.5" />
                                     <span className="sr-only">Open main menu</span>
@@ -177,7 +158,6 @@ export default function NavbarWithSearch() {
                                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                                     </button>
 
-                                    {/* Profile dropdown */}
                                     <Menu as="div" className="relative ml-4 flex-shrink-0">
                                         <div>
                                             <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -249,7 +229,6 @@ export default function NavbarWithSearch() {
 
                     <Disclosure.Panel className="lg:hidden">
                         <div className="space-y-1 px-2 pb-3 pt-2">
-                            {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                             <Disclosure.Button
                                 as="a"
                                 href="#"

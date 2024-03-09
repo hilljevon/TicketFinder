@@ -11,7 +11,6 @@ import {
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import { Slider } from "@/components/ui/slider"
 import {
     Form,
     FormControl,
@@ -27,20 +26,13 @@ import { z } from "zod"
 import { useState } from "react"
 import { getEventData, getFilteredEventData } from "@/lib/calls"
 const formSchema = z.object({
-    // priceRange: z.number().min(1, {
-    //     message: "Price range must be at least $1",
-    // }).max(100000000, {
-    //     message: 'Wrong app...'
-    // }),
     priceRange: z.string().transform((v) => Number(v) || 0),
 })
 export default function EventsTable({ events, searchQuery }: { events: eventDetailsInterface[], searchQuery: string }) {
-    // console.log('THIS IS MY EVENT LIST', events)
     const [event, setevent] = useState(null)
     const [priceRange, setPriceRange] = useState([0])
     const selectEvent = async (id: string) => {
         const result = await getEventData(id)
-        // console.log('MY RESULT EVENT HEREE', result)
         setevent(result)
     }
     const form = useForm<z.infer<typeof formSchema>>({
@@ -59,15 +51,10 @@ export default function EventsTable({ events, searchQuery }: { events: eventDeta
             <div className="mx-auto max-w-7xl">
                 <div className="bg-gray-900 py-10">
                     <div className="px-4 sm:px-6 lg:px-8">
-                        {/* INSERT FORM BELOW HERE */}
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                                 <div className="sm:flex sm:items-center">
                                     <div className="sm:flex-auto">
-
-                                        {/* <h1 className="text-base font-semibold leading-6 text-white">
-                                            Price Range
-                                        </h1> */}
                                         <FormField
                                             control={form.control}
                                             name="priceRange"
@@ -87,10 +74,6 @@ export default function EventsTable({ events, searchQuery }: { events: eventDeta
                                                 </FormItem>
                                             )}
                                         />
-                                        {/* <Button variant='secondary' type="submit">
-                                            Submit
-                                        </Button> */}
-
                                     </div>
                                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                                         <button
@@ -143,11 +126,6 @@ export default function EventsTable({ events, searchQuery }: { events: eventDeta
                                                     ) : (
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">TBD</td>
                                                     )}
-                                                    {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                        <a href="#" className="text-indigo-400 hover:text-indigo-300">
-                                                            Select <span className="sr-only"></span>
-                                                        </a>
-                                                    </td> */}
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-0">
                                                         <Button variant='secondary' className='' onClick={() => selectEvent(event.id)}>
                                                             <Sheet>
